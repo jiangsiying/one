@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>云家园</title>
+    <link href="ncuhome.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript">
+        function login(){
+            var xmlhttp;
+            xmlhttp=new XMLHttpRequest();
+            var token = sessionStorage.getItem("UserTocken");
+            if(token){
+                $.ajaxSetup({ //发送请求前触发
+                    beforeSend: function(xhr) { //可以设置自定义标头
+                        xhr.setRequestHeader('Authorization', "Bearer " + token);
+                    }
+                })
+            }else{
+                var host_url = window.location.host;
+                window.location.replace("http://" + host_url);
+            }
+
+            //接口
+            //os.ncuos.com/api/user/token
+            // os.ncuos.com/api/user/profile/basic
+        }
+        
+    </script>
+</head>
+<body>
+    <div class="background">
+        <div class="all">
+            <img src="ncuhome.png" class="picture">
+            <br>
+            <strong>登陆</strong>
+            <br><br>
+            <form class="form">                                        
+                <input class="id" type="text" name="id" placeholder="请输入学号">
+                <br><br>
+                <input class="password" type="password" name="password" placeholder="请输入密码">
+                <br><br>
+                <button type="button" id="login" onclick="login()">Login</button>
+            </form>     
+        </div>
+    </div>
+</body>
+</html>
